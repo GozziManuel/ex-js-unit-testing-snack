@@ -41,8 +41,14 @@ function findPostById(array, number) {
   return array.find((el) => el.id === number) || null;
 }
 
-// Bonus 1
+// Bonus 1 & bonus 2
 function addPost(posts, post) {
+  const arrayIds = posts.map((el) => el.id);
+  const arraySlug = posts.map((el) => el.slug);
+
+  if (arrayIds.includes(post.id) || arraySlug.includes(post.slug)) {
+    throw new Error("id o slug già esistenti");
+  }
   posts.push(post);
   return posts;
 }

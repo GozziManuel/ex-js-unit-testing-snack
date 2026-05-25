@@ -65,7 +65,7 @@ describe("using array object with find", () => {
   });
 });
 
-// BONUS 1
+// BONUS 1 & bonus 2
 beforeEach(() => {
   posts = [
     {
@@ -102,4 +102,21 @@ test("Dopo aver aggiunto un post con la funzione addPost, l'array posts deve con
 
 test("Dopo aver rimosso un post con la funzione removePost, l'array posts deve contenere un elemento in meno.", () => {
   expect(removePost(posts, 2)).toBe(2);
+});
+
+test("Se si tenta di aggiungere un post con un id o uno slug già esistente, la funzione addPost deve lanciare un errore.", () => {
+  expect(() =>
+    addPost(posts, {
+      id: 2,
+      title: "Guida pratica a vite.js",
+      slug: "guida-pratica-a-vite-js",
+    }),
+  ).toThrow("id o slug già esistenti");
+  expect(() =>
+    addPost(posts, {
+      id: 4,
+      title: "Guida pratica a vite.js",
+      slug: "come-usare-gli-array-di-oggetti",
+    }),
+  ).toThrow("id o slug già esistenti");
 });
