@@ -5,41 +5,75 @@ const {
   createSlug,
   avarage,
   isPalindrome,
+  findPostById,
 } = require("./function");
 
-test("La funzione getInitials restituisce le iniziali di un nome completo.", () => {
-  expect(getInitials("Gozzi Manuel")).toBe("G.M.");
-  expect(getInitials("gozzi manuel")).toBe("G.M.");
+describe("Prendi le iniziali", () => {
+  test("La funzione getInitials restituisce le iniziali di un nome completo.", () => {
+    expect(getInitials("Gozzi Manuel")).toBe("G.M.");
+    expect(getInitials("gozzi manuel")).toBe("G.M.");
+  });
 });
 
-// Snack 2
-
-test("La funzione createSlug restituisce una stringa in lowercase.", () => {
-  expect(createSlug("StrIngA")).toBe("stringa");
+// Snack 2 & 4 & 6
+describe("Using slug in different method", () => {
+  test("La funzione createSlug restituisce una stringa in lowercase.", () => {
+    expect(createSlug("StrIngA")).toBe("stringa");
+  });
+  test("La funzione createSlug sostituisce gli spazi con -.", () => {
+    const result = createSlug("test stringa join");
+    expect(result).toBe("test-stringa-join");
+  });
+  test("La funzione createSlug lancia un errore se il titolo è vuoto o non valido.", () => {
+    expect(() => createSlug("")).toThrow("error title not valid");
+  });
 });
 
 // snack 3
-
-test("La funzione average calcola la media aritmetica di un array di numeri.", () => {
-  const result = avarage([1, 5, 3, 6, 10]);
-  expect(result).toBe(5);
-});
-
-// snack 4
-
-test("La funzione createSlug sostituisce gli spazi con -.", () => {
-  const result = createSlug("test stringa join");
-  expect(result).toBe("test-stringa-join");
+describe("somma dell'array", () => {
+  test("La funzione average calcola la media aritmetica di un array di numeri.", () => {
+    const result = avarage([1, 5, 3, 6, 10]);
+    expect(result).toBe(5);
+  });
 });
 
 // snack 5
-
-test("La funzione isPalindrome verifica se una stringa è un palindromo.", () => {
-  expect(isPalindrome("Anna")).toBe(true);
-  expect(isPalindrome("Paolo")).toBe(false);
+describe("stringa palindroma", () => {
+  test("La funzione isPalindrome verifica se una stringa è un palindromo.", () => {
+    expect(isPalindrome("Anna")).toBe(true);
+    expect(isPalindrome("Paolo")).toBe(false);
+  });
 });
 
-// snack 6
-test("La funzione createSlug lancia un errore se il titolo è vuoto o non valido.", () => {
-  expect(() => createSlug("")).toThrow("error title not valid");
+// snack 7
+const posts = [
+  {
+    id: 1,
+    title: "Introduzione a JavaScript",
+    slug: "introduzione-a-javascript",
+  },
+  {
+    id: 2,
+    title: "Come usare gli Array di Oggetti",
+    slug: "come-usare-gli-array-di-oggetti",
+  },
+  {
+    id: 3,
+    title: "Guida pratica a Node.js",
+    slug: "guida-pratica-a-node-js",
+  },
+];
+describe("using array object with find", () => {
+  test("La funzione findPostById restituisce il post corretto dato l’array di post e l’id", () => {
+    expect(findPostById(posts, 3)).toEqual({
+      id: 3,
+      title: "Guida pratica a Node.js",
+      slug: "guida-pratica-a-node-js",
+    });
+    expect(() => findPostById(posts, "Stringa")).toThrow("id is not a number");
+    expect(findPostById(posts, 5)).toBe(null);
+    expect(() => findPostById(posts, [3, 4, 1])).toThrow("id is not a number");
+  });
 });
+
+// BONUS 1

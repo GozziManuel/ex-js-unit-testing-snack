@@ -6,7 +6,7 @@ function getInitials(name) {
   return `${letteraUno}.${letteraDue}.`;
 }
 
-// snack 2 & 4
+// snack 2 & 4 & 6
 function createSlug(string) {
   const lowerString = string.toLowerCase();
   const array = lowerString.split(" ");
@@ -34,5 +34,17 @@ function isPalindrome(string) {
   return reverseString === string.toLowerCase();
 }
 
-// snack
-module.exports = { getInitials, createSlug, avarage, isPalindrome };
+// snack 7
+function findPostById(array, number) {
+  if (isNaN(number)) {
+    throw new Error("id is not a number");
+  }
+  return array.find((el) => el.id === number) || null;
+}
+module.exports = {
+  getInitials,
+  createSlug,
+  avarage,
+  isPalindrome,
+  findPostById,
+};
