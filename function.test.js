@@ -32,6 +32,27 @@ describe("Using slug in different method", () => {
   test("La funzione createSlug lancia un errore se il titolo è vuoto o non valido.", () => {
     expect(() => createSlug("")).toThrow("error title not valid");
   });
+  test("Se viene passato un array di post come secondo argomento, la funzione createSlug incrementa di 1 se lo slug esiste già.", () => {
+    expect(
+      createSlug(posts, [
+        {
+          id: 1,
+          title: "Introduzione a JavaScript",
+          slug: "introduzione-a-javascript",
+        },
+        {
+          id: 2,
+          title: "Come usare gli Array di Oggetti",
+          slug: "come-usare-gli-array",
+        },
+        {
+          id: 3,
+          title: "Guida pratica a Node.js",
+          slug: "guida-pratica-a-node",
+        },
+      ]),
+    ).toBe(1);
+  });
 });
 
 // snack 3
@@ -120,3 +141,5 @@ test("Se si tenta di aggiungere un post con un id o uno slug già esistente, la 
     }),
   ).toThrow("id o slug già esistenti");
 });
+
+// Bonus 3

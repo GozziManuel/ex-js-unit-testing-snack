@@ -7,16 +7,28 @@ function getInitials(name) {
 }
 
 // snack 2 & 4 & 6
-function createSlug(string) {
-  const lowerString = string.toLowerCase();
-  const array = lowerString.split(" ");
-
-  if (string.trim() === "") {
-    throw new Error("error title not valid");
-  } else if (array.length > 0) {
-    return array.join("-");
+function createSlug(string, postArray) {
+  let contatore = 0;
+  if (Array.isArray(string)) {
+    const postSlug = string.map((el) => el.slug);
+    const newPostSlug = postArray.map((el) => el.slug);
+    const findingSameSlug = newPostSlug.forEach((element) => {
+      if (postSlug.includes(element) === true) {
+        contatore++;
+      }
+      return contatore;
+    });
+    return contatore;
   } else {
-    return lowerString;
+    const lowerString = string.toLowerCase();
+    const array = lowerString.split(" ");
+    if (string.trim() === "") {
+      throw new Error("error title not valid");
+    } else if (array.length > 0) {
+      return array.join("-");
+    } else {
+      return lowerString;
+    }
   }
 }
 
