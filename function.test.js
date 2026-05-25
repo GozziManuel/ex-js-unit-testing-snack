@@ -1,12 +1,17 @@
-// snack 1
-
 const {
   getInitials,
   createSlug,
   avarage,
   isPalindrome,
   findPostById,
+  addPost,
+  removePost,
 } = require("./function");
+
+// Array posts
+let posts;
+
+// snack 1
 
 describe("Prendi le iniziali", () => {
   test("La funzione getInitials restituisce le iniziali di un nome completo.", () => {
@@ -46,23 +51,7 @@ describe("stringa palindroma", () => {
 });
 
 // snack 7
-const posts = [
-  {
-    id: 1,
-    title: "Introduzione a JavaScript",
-    slug: "introduzione-a-javascript",
-  },
-  {
-    id: 2,
-    title: "Come usare gli Array di Oggetti",
-    slug: "come-usare-gli-array-di-oggetti",
-  },
-  {
-    id: 3,
-    title: "Guida pratica a Node.js",
-    slug: "guida-pratica-a-node-js",
-  },
-];
+
 describe("using array object with find", () => {
   test("La funzione findPostById restituisce il post corretto dato l’array di post e l’id", () => {
     expect(findPostById(posts, 3)).toEqual({
@@ -77,3 +66,40 @@ describe("using array object with find", () => {
 });
 
 // BONUS 1
+beforeEach(() => {
+  posts = [
+    {
+      id: 1,
+      title: "Introduzione a JavaScript",
+      slug: "introduzione-a-javascript",
+    },
+    {
+      id: 2,
+      title: "Come usare gli Array di Oggetti",
+      slug: "come-usare-gli-array-di-oggetti",
+    },
+    {
+      id: 3,
+      title: "Guida pratica a Node.js",
+      slug: "guida-pratica-a-node-js",
+    },
+  ];
+});
+
+afterEach(() => {
+  posts = [];
+});
+
+test("Dopo aver aggiunto un post con la funzione addPost, l'array posts deve contenere un elemento in più.", () => {
+  expect(
+    addPost(posts, {
+      id: 4,
+      title: "Guida pratica a vite.js",
+      slug: "guida-pratica-a-vite-js",
+    }),
+  ).toHaveLength(4);
+});
+
+test("Dopo aver rimosso un post con la funzione removePost, l'array posts deve contenere un elemento in meno.", () => {
+  expect(removePost(posts, 2)).toBe(2);
+});

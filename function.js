@@ -10,7 +10,6 @@ function getInitials(name) {
 function createSlug(string) {
   const lowerString = string.toLowerCase();
   const array = lowerString.split(" ");
-  console.log(string.trim());
 
   if (string.trim() === "") {
     throw new Error("error title not valid");
@@ -41,10 +40,21 @@ function findPostById(array, number) {
   }
   return array.find((el) => el.id === number) || null;
 }
+
+// Bonus 1
+function addPost(posts, post) {
+  posts.push(post);
+  return posts;
+}
+function removePost(posts, id) {
+  return posts.filter((el) => el.id !== id).length;
+}
 module.exports = {
   getInitials,
   createSlug,
   avarage,
   isPalindrome,
   findPostById,
+  addPost,
+  removePost,
 };
